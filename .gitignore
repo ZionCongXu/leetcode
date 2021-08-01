@@ -1,26 +1,9 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
+# 忽略所有文件
+*
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
+# 不忽略目录
+!*/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-
-.DS_Store
-tree2
+# 不忽略Java 和 .gitignore 文件
+!.gitignore
+!*.java
