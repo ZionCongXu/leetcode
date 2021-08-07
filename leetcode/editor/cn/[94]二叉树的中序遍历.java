@@ -1,4 +1,4 @@
-//给你二叉树的根节点 root ，返回它节点值的 前序 遍历。 
+//给定一个二叉树的根节点 root ，返回它的 中序 遍历。 
 //
 // 
 //
@@ -6,7 +6,7 @@
 //
 // 
 //输入：root = [1,null,2,3]
-//输出：[1,2,3]
+//输出：[1,3,2]
 // 
 //
 // 示例 2： 
@@ -27,7 +27,7 @@
 //
 // 
 //输入：root = [1,2]
-//输出：[1,2]
+//输出：[2,1]
 // 
 //
 // 示例 5： 
@@ -48,9 +48,9 @@
 //
 // 
 //
-// 进阶：递归算法很简单，你可以通过迭代算法完成吗？ 
+// 进阶: 递归算法很简单，你可以通过迭代算法完成吗？ 
 // Related Topics 栈 树 深度优先搜索 二叉树 
-// 👍 612 👎 0
+// 👍 1046 👎 0
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
@@ -71,14 +71,9 @@
  */
 class Solution {
     List<Integer> result = new ArrayList<>();
-
-    public List<Integer> preorderTraversal(TreeNode root) {
-        if(null == root){
-            return result;
-        }
-
-        // preorder(root);
-        preOrderV1(root);
+    public List<Integer> inorderTraversal(TreeNode root) {
+        // midOrder(root);
+        midOrderV1(root);
 
         return result;
     }
@@ -87,33 +82,31 @@ class Solution {
      * 递归
      * @param curNode
      */
-    public void preorder(TreeNode curNode){
+    public void midOrder(TreeNode curNode){
         if(null == curNode){
             return;
         }
 
+        midOrder(curNode.left);
         result.add(curNode.val);
-        preorder(curNode.left);
-        preorder(curNode.right);
+        midOrder(curNode.right);
     }
 
     /**
      * 非递归
-     * @param root
+     * @param curNode
      */
-    public void preOrderV1(TreeNode root){
-        Deque<TreeNode> rightStack = new LinkedList<>();
-        while (null != root){
-            result.add(root.val);
-            if(null != root.right){
-                rightStack.push(root.right);
+    public void midOrderV1(TreeNode curNode){
+        Deque<TreeNode> stack = new LinkedList<>();
+        while(null != curNode || !stack.isEmpty()){
+            while(null != curNode){
+                stack.push(curNode);
+                curNode = curNode.left;
             }
 
-            if(null != root.left){
-                root = root.left;
-            } else {
-                root = rightStack.poll();
-            }
+            curNode = stack.poll();
+            result.add(curNode.val);
+            curNode = curNode.right;
         }
     }
 }
