@@ -42,7 +42,34 @@
  */
 class Solution {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if(null == root){
+            return result;
+        }
 
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.push(root);
+        while(!deque.isEmpty()){
+            int size = deque.size();
+            List<Integer> tmp = new ArrayList<>();
+            for(int i = 0; i < size; i++){
+                TreeNode curNode = deque.poll();
+                tmp.add(curNode.val);
+                if(null != curNode.left){
+                    deque.offer(curNode.left);
+                }
+
+                if(null != curNode.right){
+                    deque.offer(curNode.right);
+                }
+            }
+
+            if(!tmp.isEmpty()){
+                result.add(0, tmp);
+            }
+        }
+
+        return result;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

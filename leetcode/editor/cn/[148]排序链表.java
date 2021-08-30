@@ -57,19 +57,19 @@ class Solution {
         return mergeSort(head, null);
     }
 
-    public ListNode mergeSort(ListNode head, ListNode tail){
-        if(null == head){
-            return head;
+    public ListNode mergeSort(ListNode left, ListNode right){
+        if(null == left){
+            return left;
         }
 
-        if(head.next == tail){
-            head.next = null;
-            return head;
+        if(left.next == right){
+            left.next = null;
+            return left;
         }
 
-        ListNode midNode = midNode(head, tail);
-        ListNode leftList = mergeSort(head, midNode);
-        ListNode rightList = mergeSort(midNode, tail);
+        ListNode midNode = midNode(left, right);
+        ListNode leftList = mergeSort(left, midNode);
+        ListNode rightList = mergeSort(midNode, right);
         ListNode sortedNode = merge(leftList, rightList);
 
         return sortedNode;
@@ -79,10 +79,10 @@ class Solution {
      * 利用快慢指针找到中点
      * @return
      */
-    public ListNode midNode(ListNode head, ListNode tail){
-        ListNode slow = head;
-        ListNode fast = head;
-        while(null != fast && null != fast.next && tail != fast && tail != fast.next){
+    public ListNode midNode(ListNode left, ListNode right){
+        ListNode slow = left;
+        ListNode fast = left;
+        while(null != fast && null != fast.next && right != fast && right != fast.next){
             slow = slow.next;
             fast = fast.next.next;
         }
